@@ -48,19 +48,22 @@ if args.crop is True:
 else:
     print("png2pdf 실행")
 
+    print("PNG 불러오는 중...")
     images = [file for file in sorted(os.listdir(dirname)) if ".png" in file]
     images_read = [cv2.imread(img) for img in images]
 
+    print("PNG crop 작업 중...")
     x, y = args.left, args.top
     h, w, c = images_read[0].shape
     images_crop = [img[y : (h - y), x : (w - x)] for img in images_read]
 
-    print("PNG crop 작업 중...")
+    print("PNG crop 저장 중...")
     for i in range(len(images)):
         filename = "crop-" + images[i]
         img = images_crop[i]
         cv2.imwrite(dirname + filename, img)
 
+    print("PNG crop 불러오는 중...")
     images_crop = [file for file in sorted(os.listdir(dirname)) if "crop-" in file]
 
     print("PNG -> PDF 변환 중...")
