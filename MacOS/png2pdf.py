@@ -55,6 +55,7 @@ else:
     h, w, c = images_read[0].shape
     images_crop = [img[y : (h - y), x : (w - x)] for img in images_read]
 
+    print("PNG crop 작업 중...")
     for i in range(len(images)):
         filename = "crop-" + images[i]
         img = images_crop[i]
@@ -62,6 +63,7 @@ else:
 
     images_crop = [file for file in sorted(os.listdir(dirname)) if "crop-" in file]
 
+    print("PNG -> PDF 변환 중...")
     with open(result, "wb") as f:
         f.write(img2pdf.convert(images_crop))
 
